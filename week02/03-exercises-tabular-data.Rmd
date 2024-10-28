@@ -26,7 +26,7 @@ folder you would like to store your local copy of your repo. You should replace
 
 ```{bash, eval = FALSE}
 cd <path>
-git _________ <url>
+git clone <url>
 cd _________
 ```
 
@@ -43,15 +43,15 @@ are only staging files you want to save to GitHub. Once you're satisfied stage
 as follows.
 
 ```{bash, eval = FALSE}
-git _________ .
+git add .
 ```
 
 Commit and push your changes to your repo, using "added seminar files" as your 
 commit message.
 
 ```{bash, eval = FALSE}
-git _________ -m "_________"
-git _________
+git commit -m "added seminar files"
+git push
 ```
 
 Check on the GitHub website that this file now appears in your repository.
@@ -60,12 +60,12 @@ Now, let's get to work with R. Start with setting up your workspace:
 
 ```{r setup}
 # load in libraries:
-suppressMessages(library(_________))
-# or just library(____________)
+suppressMessages(library(tidyverse))
+# or just library(tidyverse)
 
 # read ip_and_unemployment.csv
-ip_and_unemployment <- _________________
-head(______)
+ip_and_unemployment <- read.csv("ip_and_unemployment.csv")
+head(ip_and_unemployment)
 
 ```
     
@@ -79,30 +79,30 @@ countries? Make sure to delete NA values in only the time series of interest.
 
 # data processing
 ipu_clean <- ip_and_unemployment %>%
-  pivot_____(id_cols = c(_____, _____), 
-              names_from = ______, values_from = ______)  # long to wide
+  pivot_wider(id_cols = c(country,date ), 
+              names_from = "series", values_from = "value")  # long to wide
 
 # France
 ipu_clean %>%
-  filter(country == _____) %>%
-  _____(unemployment == max(_______, na.rm = TRUE) | 
+  filter(country == "france") %>%
+  filter(unemployment == max(unemployment, na.rm = TRUE) | 
            ip == min(ip, na.rm = TRUE)) 
     # need to add na.rm = TRUE, because ip contains NA and min() will return NA
     # if there is one NA, unless na.rm = TRUE
 
 # Spain
 ipu_clean %>%
-  _____(_____ == _____) %>%
-  filter(unemployment == ________________________  | 
-           __ == ____________________)
+  filter(country == "spain") %>%
+  filter(unemployment == max(unemployment, na.rm = TRUE)  | 
+           ip == min(ip, na.rm = TRUE))
 
 # Optional --------------------------------------------------------------------
 filter_worst_months <- function(x) {
   filtered <- ipu_clean %>%
-    _____(country == x) %>%
-    _____(____________ == ________________________ | 
-             ip == ________________________)
-  return(_______)
+    filter(country == x) %>%
+    filter(unemployment == max(unemployment, na.rm = TRUE) | 
+             ip == min(ip,na.rm = TRUE))
+  return(filtered)
 }
 
 filter_worst_months("germany")
