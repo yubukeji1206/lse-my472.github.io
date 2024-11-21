@@ -50,7 +50,7 @@ Office hour slots with all instructors should be booked via LSE's [StudentHub](h
 | 5  | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Ryan Hübert |
 | 6  | _Reading week_ |  
 | 7  | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Ryan Hübert |   
-| 8  | [Working with APIs](#8-working-with-apis) |  Ryan Hübert |  
+| 8  | [APIs](#8-apis) |  Ryan Hübert |  
 | 9  | [Other data types](#9-other-data-types) |  Ryan Hübert |  
 | 10 | [Creating and managing databases](#10-creating-and-managing-databases) |  Ryan Hübert |  
 | 11 | [Interacting with online databases](#11-nosql-and-cloud-databases)|  Ryan Hübert |  
@@ -192,13 +192,14 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Website example](x), [selecting elements](x), [scraping tables](x)
+- [Slides](week05/MY472-week05-scraping-1.pdf)
+- Examples: [Website example 1](week05/data/html1.html), [Website example 2](week05/data/html2.html), [Website example 3](week05/data/html3.html), [Website example 4](week05/data/css1.html), [Website example 5](week05/data/css2.html)
+- Code: , [selecting elements](week05/01-selecting-elements.Rmd), [scraping tables](week05/02-scraping-tables.Rmd)
 
 
 #### Seminar
 
-- Code: [Scraping unstructured data](x), [solution](x)
+- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd), [solution](week05/03-exercises-scraping-unstructured-data-solution.Rmd)
 
 
 #### Reading
@@ -227,12 +228,12 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Scraping RSS](x), [introduction to RSelenium](x), [RSelenium example with the LSE website](x)
+- [Slides](week07/MY472-week07-scraping-2.pdf)
+- Code: [Scraping RSS](week07/01-newspaper-rss.Rmd), [introduction to RSelenium](week07/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week07/03-selenium-lse.Rmd)
 
 #### Seminar
 
-- Code: [Scraping UK election data](x), [solution](x)
+- Code: [Scraping UK election data](week07/04-exercises-advanced-scraping.Rmd), [solution](week07/04-exercises-advanced-scraping-solution.Rmd)
 
 
 #### Reading
@@ -248,19 +249,20 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
 
-### 8. Working with APIs
+### 8. APIs
 
 This week discusses how to work with Application Programming Interfaces (APIs) that offer developers and researchers access to data in a structured format. 
 
 #### Lecture
 
-- [Slides](x)
-- Code: [JSON in R](x), [AIC API](x)
-
+- [Slides](week08/MY472-week08-APIs.pdf)
+- Code: [JSON in R](week08/01-json-in-r.Rmd), [AIC API](week08/02-aic-api.Rmd)
+- Data: [example_1.json](week08/data/example_1.json), [example_2.json](week08/data/example_2.json), [example_3.json](week08/data/example_3.json)
+- Extra example: [Google Maps API](week08/google-maps-example.R)
 
 #### Seminar
 
-- Code: [NY Times API](x), [NY Times API solution](x)
+- Code: [NY Times API](week08/03-nyt-api.Rmd), [NY Times API solution](week08/03-nyt-api-solution.Rmd)
 
 
 #### Reading

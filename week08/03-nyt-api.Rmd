@@ -1,9 +1,10 @@
 ---
-title: "New York Times API"
-author: "Pablo Barberá, Friedrich Geiecke, Daniel de Kadt"
-date: "14 November 2023"
+title: "Week 8: New York Times API"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Friedrich Geiecke, Daniel de Kadt and Ryan Hübert._
 
 Note: The precise numbers of articles returned by the different queries can change somewhat over time as it appears the data in the Archive is still subject to revisions.
 
@@ -15,20 +16,21 @@ Loading packages:
 library("httr")
 library("jsonlite")
 library("tidyverse")
+library("keyring")
 ```
 
-We are now going to work with a private API, using  we will take the New York Times Article Search API as an example. This API allows users to search articles by string and dates, and returns counts of articles and a short description of each article (but not the full text). You can create a new account and obtain a key [here](https://developer.nytimes.com/get-started). Create an `.env` file in your **local** directory, and save your key. Remember, be sure never to display any file publicly, e.g. in a public repo or a private collaborative repo, when it contains an active key!
+We are now going to work with a private API, using  we will take the New York Times Article Search API as an example. This API allows users to search articles by string and dates, and returns counts of articles and a short description of each article (but not the full text). If you haven't done so aready, create a new account and obtain a key [here](https://developer.nytimes.com/get-started). Then, store your key in your system's keychain using the `keyring` package (installation instructions in the lecture slides).
 
 ```{r}
-read_______("YOUR .env FILE HERE")
-apikey <- Sys.____("WHATEVER NAME YOU SAVED YOUR KEY AS IN THE .env FILE")
+key_name <- "nyt-api-key" # this should be whatever you want to call your NYT API key
+# key_set(key_name) # only need to do this if you haven't done so yet
 ```
 
-The first step is to identify the base URL of the endpoint and the parameters that we can use to query the API, for the Article Search API you can find this URL structure [here](https://developer.nytimes.com/docs/articlesearch-product/1/overview). Now we can do a first API call using the **httr** package.
+The first step is to identify the base URL of the endpoint and the parameters that we can use to query the API, for the Article Search API you can find this URL structure [here](https://developer.nytimes.com/docs/articlesearch-product/1/overview). Now we can do a first API call using the `httr` package. Warning: when you print the `r` object below, it will show your key! You can clear the ouput or avoid printing this object if you don't want your key to be visible.
 
 ```{r}
 base_url <- "https://api.nytimes.com/svc/search/v2/articlesearch.json"
-r <- GET(base_url, query = list(q = "inequality", "api-key" = apikey))
+r <- GET(base_url, query = list(q = "inequality", "api-key" = ________(key_name)))
 r
 ```
 
@@ -82,7 +84,7 @@ nyt_count <- _______(q, date1, date2) {
   
   # Get the return of the request
   r <- GET(_____, query = list(q = q,
-                                  "api-key" = apikey,
+                                  "api-key" = key_get(key_name),
                                   "begin_date" = date1,
                                   "end_date" = date2))
   
@@ -91,7 +93,7 @@ nyt_count <- _______(q, date1, date2) {
     message("Error occured. Retry after 10 seconds..")
     Sys.sleep(__) # Wait 10 seconds
     r <- GET(base_url, query = list(q = q,
-                                    "api-key" = apikey,
+                                    "api-key" = key_get(key_name),
                                     "begin_date" = date1,
                                     "end_date" = date2))
     
@@ -211,7 +213,7 @@ ggplot(counts, aes(x = date, y = count)) +
 Lastly, let us look at the Archive API which allows to download all materials for a given month. In the public version of the API, articles do not contain full texts, but usually headlines and very often at least one of abstract, snippet, and/or lead lead paragraphs The structure of the URL/endpoint can be found on  https://developer.nytimes.com/docs/archive-product/1/overview. For example, the correct URL to request all articles September 2008 would be https://api.nytimes.com/svc/archive/v1/2008/9.json?api-key=yourkey. We will use the `sprintf` function from last week to create this URL for July 1855 as an example:
 
 ```{r}
-exemplary_archive_url <- _____("https://api.nytimes.com/svc/archive/v1/%g/%g.json?api-key=%s", 1855, 7, apikey)
+exemplary_archive_url <- _____("https://api.nytimes.com/svc/archive/v1/%g/%g.json?api-key=%s", 1855, 7, key_get(key_name))
 exemplary_archive_url
 ```
 
